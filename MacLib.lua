@@ -6519,37 +6519,31 @@ function Library:CreateWindow(WindowInfo)
         )
         Library:AddOutline(MainFrame)
 
-        local GlowFrame = New("Frame", {
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            BackgroundColor3 = function()
-                return Library.Scheme.AccentColor
-            end,
-            BackgroundTransparency = 0.82,
-            Position = UDim2.fromScale(0.5, 0.5),
-            Size = UDim2.new(1, 28, 1, 28),
-            ZIndex = -1,
-            Parent = MainFrame,
-        })
-        New("UICorner", {
-            CornerRadius = UDim.new(0, WindowInfo.CornerRadius + 6),
-            Parent = GlowFrame,
-        })
+        local GlowLayers = {
+            { Spread = 6,  Transparency = 0.75 },
+            { Spread = 14, Transparency = 0.84 },
+            { Spread = 24, Transparency = 0.91 },
+            { Spread = 38, Transparency = 0.95 },
+            { Spread = 56, Transparency = 0.98 },
+        }
 
-        local GlowOuter = New("Frame", {
-            AnchorPoint = Vector2.new(0.5, 0.5),
-            BackgroundColor3 = function()
-                return Library.Scheme.AccentColor
-            end,
-            BackgroundTransparency = 0.92,
-            Position = UDim2.fromScale(0.5, 0.5),
-            Size = UDim2.new(1, 52, 1, 52),
-            ZIndex = -2,
-            Parent = MainFrame,
-        })
-        New("UICorner", {
-            CornerRadius = UDim.new(0, WindowInfo.CornerRadius + 14),
-            Parent = GlowOuter,
-        })
+        for i, Layer in ipairs(GlowLayers) do
+            local GlowLayer = New("Frame", {
+                AnchorPoint = Vector2.new(0.5, 0.5),
+                BackgroundColor3 = function()
+                    return Library.Scheme.AccentColor
+                end,
+                BackgroundTransparency = Layer.Transparency,
+                Position = UDim2.fromScale(0.5, 0.5),
+                Size = UDim2.new(1, Layer.Spread * 2, 1, Layer.Spread * 2),
+                ZIndex = -i,
+                Parent = MainFrame,
+            })
+            New("UICorner", {
+                CornerRadius = UDim.new(0, WindowInfo.CornerRadius + Layer.Spread),
+                Parent = GlowLayer,
+            })
+        end
         Library:MakeLine(MainFrame, {
             Position = UDim2.fromOffset(0, 48),
             Size = UDim2.new(1, 0, 0, 1),
