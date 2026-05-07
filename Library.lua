@@ -6520,11 +6520,9 @@ function Library:CreateWindow(WindowInfo)
         Library:AddOutline(MainFrame)
 
 		local GlowLayers = {
-			{ Spread = 3,  Transparency = 0.82 },
-			{ Spread = 7,  Transparency = 0.89 },
-			{ Spread = 13, Transparency = 0.94 },
-			{ Spread = 20, Transparency = 0.97 },
-			{ Spread = 30, Transparency = 0.99 },
+			{ Spread = 2,  Transparency = 0.88 },
+			{ Spread = 5,  Transparency = 0.94 },
+			{ Spread = 10, Transparency = 0.98 },
 		}
 
         for i, Layer in ipairs(GlowLayers) do
